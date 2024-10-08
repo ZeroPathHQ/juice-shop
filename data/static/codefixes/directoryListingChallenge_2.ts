@@ -6,8 +6,17 @@
   app.use('/.well-known', express.static('.well-known'))
 
   /* /encryptionkeys directory browsing */
-  app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
-  app.use('/encryptionkeys/:file', keyServer())
+  const authMiddleware = (req, res, next) => {
+    // TODO: Implement proper authentication logic
+    if (req.headers['authorization'] === 'Bearer secret-token') {
+      next();
+    } else {
+      res.status(403).send('Access Denied');
+    }
+  };
+
+  app.use('/encryptionkeys', authMiddleware, serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+  app.use('/encryptionkeys/:file', authMiddleware, keyServer())
 
   /* /logs directory browsing */
   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
