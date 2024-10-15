@@ -12,7 +12,7 @@ import { MatPaginator } from '@angular/material/paginator'
 import { forkJoin, type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
-import { type SafeHtml } from '@angular/platform-browser'
+import { DomSanitizer, type SafeHtml } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -57,7 +57,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
 
   constructor (private readonly deluxeGuard: DeluxeGuard, private readonly dialog: MatDialog, private readonly productService: ProductService,
     private readonly quantityService: QuantityService, private readonly basketService: BasketService, private readonly translateService: TranslateService,
-    private readonly router: Router, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService,
+    private readonly router: Router, private readonly route: ActivatedRoute, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService,
     private readonly snackBarHelperService: SnackBarHelperService, private readonly cdRef: ChangeDetectorRef) { }
 
   // vuln-code-snippet start restfulXssChallenge
