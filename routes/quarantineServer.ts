@@ -6,14 +6,6 @@
 import path = require('path')
 import { type Request, type Response, type NextFunction } from 'express'
 
-/**
- * This function serves files from the quarantine directory.
- * The fix addresses several security issues:
- * 1. Adds authentication check to ensure only authenticated users can access files.
- * 2. Improves input validation to prevent directory traversal attacks.
- * 3. Uses path.normalize and path.join for safer path handling.
- * 4. Ensures the requested file is within the quarantine directory to prevent unauthorized access.
- */
 module.exports = function serveQuarantineFiles () {
   return (req: Request, res: Response, next: NextFunction) => {
     // Authentication check
