@@ -148,6 +148,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
       }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
+      // Fix: Use encodeURIComponent instead of bypassSecurityTrustHtml to prevent XSS vulnerabilities
       this.searchValue = encodeURIComponent(queryParam)
       this.gridDataSource.subscribe((result: any) => {
         if (result.length === 0) {
