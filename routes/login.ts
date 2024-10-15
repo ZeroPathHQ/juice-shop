@@ -33,6 +33,7 @@ module.exports = function login () {
 
   return (req: Request, res: Response, next: NextFunction) => {
     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
+    // Fix: Use parameterized query to prevent SQL injection
     models.sequelize.query('SELECT * FROM Users WHERE email = ? AND password = ? AND deletedAt IS NULL', 
       { 
         replacements: [req.body.email || '', security.hash(req.body.password || '')],
